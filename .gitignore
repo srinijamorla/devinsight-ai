@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Mac system files
+.DS_Store
+
+# Model files
+*.pkl
+
+# VSCode settings
+.vscode/
+
+# Uploaded files and temporary data
+src/uploads/
+webapp/uploads/

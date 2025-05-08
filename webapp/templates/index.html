@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevInsight - Upload</title>
+</head>
+<body>
+    <h1>Upload Excel File for Prediction</h1>
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx" required>
+        <br><br>
+        <input type="submit" value="Upload and Predict">
+    </form>
+</body>
+</html>
