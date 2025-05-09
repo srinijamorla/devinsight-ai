@@ -1,0 +1,21 @@
+message,label
+fix login issue in auth module,bugfix
+add support for new user roles,feature
+update README with installation steps,docs
+refactor database connection logic,refactor
+fix typo in function docstring,docs
+create password reset endpoint,feature
+optimize loop for faster performance,refactor
+resolve error when uploading image,bugfix
+implement API for user preferences,feature
+cleanup unused imports in utils,refactor
+fix crash when deleting a record,bugfix
+add caching to improve load time,feature
+doc update for usage instructions,docs
+fix broken link in documentation,docs
+refactor validation logic,refactor
+implement 2FA authentication,feature
+bugfix: null pointer exception on login,bugfix
+updated changelog for new release,docs
+fixed issue with email notifications,bugfix
+added endpoint for email verification,feature

@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DevInsight - Upload</title>
+    <title>DevInsight AI</title>
 </head>
 <body>
-    <h1>Upload Excel File for Prediction</h1>
-    <form action="/predict" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".xlsx" required>
-        <br><br>
-        <input type="submit" value="Upload and Predict">
+    <h1>DevInsight AI</h1>
+
+    <!-- GitHub Repo Analysis Form -->
+    <h2>Analyze a GitHub Repo</h2>
+    <form action="/analyze_repo" method="post">
+        <input type="text" name="repo_url" placeholder="https://github.com/user/repo" required>
+        <button type="submit">Analyze Repo Commits</button>
+    </form>
+
+    <hr>
+
+    <!-- File Upload Form -->
+    <h2>Upload Commit File (Excel)</h2>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Predict</button>
     </form>
 </body>
 </html>
