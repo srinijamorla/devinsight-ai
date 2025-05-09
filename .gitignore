@@ -19,3 +19,9 @@ venv/
 # Uploaded files and temporary data
 src/uploads/
 webapp/uploads/
+.env
+.venv/
+__pycache__/
+*.pyc
+.env
+*.xlsx

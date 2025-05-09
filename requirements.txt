@@ -1,6 +1,9 @@
+Flask
+flask-login
 pandas
 matplotlib
-seaborn
 scikit-learn
-Flask==2.3.3
-openpyxl>=3.1.0
+openpyxl
+requests
+beautifulsoup4
+joblib

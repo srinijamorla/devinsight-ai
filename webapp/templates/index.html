@@ -2,24 +2,52 @@
 <html>
 <head>
     <title>DevInsight AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+        }
+        h1 {
+            color: #333;
+        }
+        .feature {
+            margin: 1rem 0;
+        }
+        a.button {
+            padding: 0.5rem 1rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>DevInsight AI</h1>
+    <h1>🚀 DevInsight AI</h1>
+    <p>Your AI-powered assistant for analyzing Git commits and surfacing insights.</p>
 
-    <!-- GitHub Repo Analysis Form -->
-    <h2>Analyze a GitHub Repo</h2>
-    <form action="/analyze_repo" method="post">
-        <input type="text" name="repo_url" placeholder="https://github.com/user/repo" required>
-        <button type="submit">Analyze Repo Commits</button>
-    </form>
+    <div class="feature">
+        <h3>🔍 Upload Commit Messages</h3>
+        <p>Classify messages and detect risky changes with confidence scores.</p>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
 
-    <hr>
+    <div class="feature">
+        <h3>🌐 Analyze GitHub Repo</h3>
+        <p>Fetch commit messages from any public repo and classify them instantly.</p>
+        <form action="/analyze_repo" method="post">
+            <input type="text" name="repo_url" placeholder="https://github.com/user/repo" required style="width: 300px;">
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
 
-    <!-- File Upload Form -->
-    <h2>Upload Commit File (Excel)</h2>
-    <form action="/predict" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <button type="submit">Predict</button>
-    </form>
+    <div class="feature">
+        <a href="/logout" class="button">Logout</a>
+    </div>
 </body>
 </html>
