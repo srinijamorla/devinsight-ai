@@ -1,19 +1,12 @@
 # src/github_fetch.py
 
-import os
 import requests
 import pandas as pd
-from dotenv import load_dotenv
 from urllib.parse import urlparse
 import streamlit as st
 
-# Load OAuth token from .env file
-load_dotenv()
-GITHUB_TOKEN= ["REMOVED"]
-
-headers = {
-    "Authorization": f"token {GITHUB_TOKEN}"
-}
+# No authentication headers
+headers = {}
 
 def extract_repo_info(repo_url):
     """
@@ -39,7 +32,7 @@ def fetch_commits(repo_url, per_page=100, max_pages=5):
         response = requests.get(url, headers=headers, params=params)
 
         if response.status_code != 200:
-            print(f"Error fetching commits: {response.status_code}")
+            st.error(f"Error fetching commits: {response.status_code}")
             break
 
         data = response.json()
@@ -60,9 +53,7 @@ def save_commits_to_csv(df, path="data/fetched_commits.csv"):
     df.to_csv(path, index=False)
     print(f"[✔] Saved {len(df)} commits to {path}")
 
-
 if __name__ == "__main__":
-    # You can hardcode the repo URL for testing or use input()
     default_url = "https://github.com/srinijamorla/chatbot_repo"
     user_input = input(f"Enter GitHub repo URL (default: {default_url}): ").strip()
     repo_url = user_input if user_input else default_url
