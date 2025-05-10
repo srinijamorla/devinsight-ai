@@ -80,35 +80,57 @@ else:
             else:
                 st.warning("Please enter a valid URL.")
 
-    # --- Shared Prediction Logic ---
-    if df is not None:
-        df['cleaned'] = df['message'].apply(clean_text)
-        X = vectorizer.transform(df['cleaned'])
-        df['label'] = model.predict(X)
+# --- Shared Prediction Logic ---
+if df is not None:
+    df['cleaned'] = df['message'].apply(clean_text)
+    X = vectorizer.transform(df['cleaned'])
+    df['label'] = model.predict(X)
 
-        if hasattr(model, "predict_proba"):
-            df['confidence'] = model.predict_proba(X).max(axis=1)
-        else:
-            df['confidence'] = "N/A"
+    if hasattr(model, "predict_proba"):
+        df['confidence'] = model.predict_proba(X).max(axis=1)
+    else:
+        df['confidence'] = 0.0  # fallback for filtering slider
 
-        st.markdown("---")
-        st.subheader("✅ Sample Predictions")
-        st.dataframe(df[['message', 'label', 'confidence']].head(10), use_container_width=True)
+    # --- Filters ---
+    st.markdown("### 🎛️ Filter Predictions")
 
-        st.subheader("📊 Prediction Summary")
-        label_counts = df['label'].value_counts()
-        fig, ax = plt.subplots()
-        sns.barplot(x=label_counts.index, y=label_counts.values, ax=ax)
-        ax.set_ylabel("Count")
-        ax.set_title("Predicted Commit Label Distribution")
-        st.pyplot(fig)
+    unique_labels = sorted(df['label'].unique().tolist())
+    selected_labels = st.multiselect("Filter by Label", unique_labels, default=unique_labels)
 
-        # --- Download ---
-        output = BytesIO()
-        df.to_excel(output, index=False)
-        st.download_button(
-            label="⬇️ Download Predictions as Excel",
-            data=output.getvalue(),
-            file_name="predicted_commits.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+    confidence_range = st.slider(
+        "Filter by Confidence Score",
+        min_value=0.0,
+        max_value=1.0,
+        value=(0.0, 1.0),
+        step=0.01
+    )
+
+    # Apply filters
+    filtered_df = df[
+        (df['label'].isin(selected_labels)) &
+        (df['confidence'] >= confidence_range[0]) &
+        (df['confidence'] <= confidence_range[1])
+    ]
+
+    st.markdown("---")
+    st.subheader("✅ Filtered Predictions")
+    st.dataframe(filtered_df[['message', 'label', 'confidence']].head(10), use_container_width=True)
+
+    st.subheader("📊 Filtered Prediction Summary")
+    label_counts = filtered_df['label'].value_counts()
+
+    fig, ax = plt.subplots()
+    sns.barplot(x=label_counts.index, y=label_counts.values, ax=ax)
+    ax.set_ylabel("Count")
+    ax.set_title("Filtered Commit Label Distribution")
+    st.pyplot(fig)
+
+    # --- Download ---
+    output = BytesIO()
+    filtered_df.to_excel(output, index=False)
+    st.download_button(
+        label="⬇️ Download Filtered Predictions",
+        data=output.getvalue(),
+        file_name="filtered_predicted_commits.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
