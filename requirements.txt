@@ -8,4 +8,3 @@ openpyxl
 requests
 beautifulsoup4
 joblib
-python-dotenv
