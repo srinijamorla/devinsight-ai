@@ -48,7 +48,9 @@ else:
     if st.sidebar.button("🔓 Logout"):
         for key in list(st.session_state.keys()):
             del st.session_state[key]  # Clears all session state values
-        st.experimental_rerun()  # Safe to rerun the app
+        st.session_state.authenticated = False  # Explicitly reset authentication
+        st.write("You have been logged out.")  # Optional: show logout message
+        st.experimental_rerun()  # Rerun the app after clearing session state
 
     df = None
 
