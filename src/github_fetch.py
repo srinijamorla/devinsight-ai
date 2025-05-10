@@ -5,10 +5,11 @@ import requests
 import pandas as pd
 from dotenv import load_dotenv
 from urllib.parse import urlparse
+import streamlit as st
 
 # Load OAuth token from .env file
 load_dotenv()
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_TOKEN= ["REMOVED"]
 
 headers = {
     "Authorization": f"token {GITHUB_TOKEN}"
