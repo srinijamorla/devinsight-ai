@@ -33,7 +33,7 @@ if not st.session_state.authenticated:
         else:
             st.error("Invalid credentials")
 
-    st.stop()  # ⛔ Prevents rest of app from rendering
+    st.stop()  # ⛔ Prevents the rest of the app from rendering if not logged in
 else:
     # --- Main App ---
     st.title("🚀 DevInsight AI – Developer Commit Intelligence Dashboard")
@@ -43,9 +43,12 @@ else:
     # --- Sidebar ---
     st.sidebar.title("Navigation")
     option = st.sidebar.radio("Choose an Option", ["Upload File", "Analyze GitHub Repo"])
+
+    # Logout Button
     if st.sidebar.button("🔓 Logout"):
-        st.session_state.authenticated = False
-        st.experimental_rerun()  # Safe now, since newer versions support it
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]  # Clears all session state values
+        st.experimental_rerun()  # Safe to rerun the app
 
     df = None
 
